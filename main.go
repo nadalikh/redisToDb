@@ -17,7 +17,7 @@ func main() {
 	}
 	keys := r.Keys("[0-9]*").Val()
 	for _, key := range keys {
-		println(r.LRange(key, 0, -1))
+		println(r.LRange(key, 0, -1).Val())
 		//r.RPop(key)
 	}
 }
