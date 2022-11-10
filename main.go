@@ -15,7 +15,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	for val, _ := range r.LRange("111", 0, -1).Val() {
+	for _, val := range r.LRange("111", 0, -1).Val() {
 		println(val)
 	}
 
