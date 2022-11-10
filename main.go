@@ -16,5 +16,5 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	Println(r.Keys("[0-9]*").Val())
+	Println(len(r.Keys("[0-9]*").Val()))
 }
