@@ -15,9 +15,11 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	keys := r.Keys("[0-9]*").Val()
-	for _, key := range keys {
-		println(r.LRange(key, 0, 3).Val())
-		//r.RPop(key)
-	}
+	println(r.LRange("111", 0, -1).Val())
+
+	//keys := r.Keys("[0-9]*").Val()
+	//for _, key := range keys {
+	//	println(r.LRange("111", 0, -1).Val())
+	//	//r.RPop(key)
+	//}
 }
