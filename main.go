@@ -1,7 +1,6 @@
 package main
 
 import (
-	. "fmt"
 	"github.com/go-redis/redis"
 	"log"
 )
@@ -16,5 +15,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	Println(len(r.Keys("[0-9]*").Val()))
+	keys := r.Keys("[0-9]*").Val()
+	for _, key := range keys {
+		println(r.LRange(key, 0, -1))
+		//r.RPop(key)
+	}
 }
