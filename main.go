@@ -22,7 +22,7 @@ func main() {
 		log.Fatal(err)
 	}
 	//Creating mongodb connection
-	db, err := mongo.NewClient(options.Client().ApplyURI("mongodb://127.0.0.1:27017"))
+	db, err := mongo.NewClient(options.Client().ApplyURI("mongodb://192.168.8.115:27017"))
 	if err != nil {
 		log.Fatal(err)
 	}
