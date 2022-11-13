@@ -17,12 +17,10 @@ func main() {
 		Password: "",
 		DB:       0,
 	})
-	println("-------------------------------------------------------------------")
 	_, err := r.Ping().Result()
 	if err != nil {
 		log.Fatal(err)
 	}
-	println("-------------------------------------------------------------------")
 
 	//Creating mongodb connection
 	db, err := mongo.NewClient(options.Client().ApplyURI("mongodb://192.168.8.115:27017"))
@@ -41,7 +39,7 @@ func main() {
 		for _, key := range keys {
 			numberOfDetailsForAnImei := len(r.LRange(key, 0, -1).Val())
 			for i := 0; i < numberOfDetailsForAnImei; i++ {
-				imeiDetail = append(imeiDetail, bson.D{{key, r.RPop(key)}})
+				imeiDetail = append(imeiDetail, bson.D{{key, r.RPop(key).Val()}})
 			}
 		}
 		collection := db.Database("GPS").Collection("statuses")
