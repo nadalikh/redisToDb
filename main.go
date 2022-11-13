@@ -17,10 +17,13 @@ func main() {
 		Password: "",
 		DB:       0,
 	})
+	println("-------------------------------------------------------------------")
 	_, err := r.Ping().Result()
 	if err != nil {
 		log.Fatal(err)
 	}
+	println("-------------------------------------------------------------------")
+
 	//Creating mongodb connection
 	db, err := mongo.NewClient(options.Client().ApplyURI("mongodb://192.168.8.115:27017"))
 	if err != nil {
