@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	. "fmt"
 	"github.com/go-redis/redis"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -51,9 +52,7 @@ func main() {
 			if err != nil {
 				log.Fatal(err)
 			}
-			for key, val := range res.InsertedIDs {
-				println(key, val)
-			}
+			Printf("inserted documents with IDs %v\n", res.InsertedIDs)
 			imeiDetail = nil
 		}
 		time.Sleep(time.Second * 1)
