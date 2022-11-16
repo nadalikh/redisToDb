@@ -42,11 +42,17 @@ func main() {
 	for {
 		keys := r.Keys("[0-9]*").Val()
 		for _, key := range keys {
-			numberOfDetailsForAnImei := len(r.LRange(key, 0, -1).Val())
-			for i := 0; i < numberOfDetailsForAnImei; i++ {
-				imeiDetail = append(imeiDetail, bson.D{{key, r.RPop(key).Val()}})
-			}
+			/*
+				To store all the packets just uncomment these lines.
+			*/
+			//numberOfDetailsForAnImei := len(r.LRange(key, 0, -1).Val())
+			//for i := 0; i < numberOfDetailsForAnImei; i++ {
+			//	imeiDetail = append(imeiDetail, bson.D{{key, r.RPop(key).Val()}})
+			//}
+			imeiDetail = append(imeiDetail, bson.D{{key, r.RPop(key).Val()}})
+
 		}
+		r.FlushDB()
 		if len(keys) > 0 {
 			collection := db.Database("GPS").Collection("statuses")
 			res, err := collection.InsertMany(ctx, imeiDetail)
