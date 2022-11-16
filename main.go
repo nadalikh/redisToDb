@@ -29,8 +29,9 @@ func main() {
 		log.Fatal(err)
 	}
 	//Start the connection
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
+	//ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	//defer cancel()
+	ctx := context.TODO()
 	err = db.Connect(ctx)
 
 	if err != nil {
