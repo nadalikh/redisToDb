@@ -53,7 +53,7 @@ func main() {
 			if err != nil {
 				log.Fatal(err)
 			}
-			Printf("inserted documents with IDs %v\n", res.InsertedIDs)
+			Printf("inserted documents with IDs %v in %s\n", res.InsertedIDs, time.Now())
 			imeiDetail = nil
 		}
 		time.Sleep(time.Second * 3)
