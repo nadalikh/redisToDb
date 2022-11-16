@@ -45,15 +45,17 @@ func main() {
 				imeiDetail = append(imeiDetail, bson.D{{key, r.RPop(key).Val()}})
 			}
 		}
-		collection := db.Database("GPS").Collection("statuses")
-		res, err := collection.InsertMany(ctx, imeiDetail)
-		if err != nil {
-			log.Fatal(err)
+		if len(keys) > 0 {
+			collection := db.Database("GPS").Collection("statuses")
+			res, err := collection.InsertMany(ctx, imeiDetail)
+			if err != nil {
+				log.Fatal(err)
+			}
+			for key, val := range res.InsertedIDs {
+				println(key, val)
+			}
+			imeiDetail = nil
 		}
-		for key, val := range res.InsertedIDs {
-			println(key, val)
-		}
-		imeiDetail = nil
 		time.Sleep(time.Second * 1)
 	}
 }
