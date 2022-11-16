@@ -23,17 +23,19 @@ func main() {
 	}
 
 	//Creating mongodb connection
-	db, err := mongo.NewClient(options.Client().ApplyURI("mongodb://192.168.8.115:27017"))
+	db, err := mongo.NewClient(options.Client().ApplyURI("mongodb://127.0.0.1:27017"))
 	if err != nil {
 		log.Fatal(err)
 	}
 	//Start the connection
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
 	err = db.Connect(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
 	var imeiDetail []interface{}
+
 	for {
 		keys := r.Keys("[0-9]*").Val()
 		for _, key := range keys {
@@ -45,10 +47,12 @@ func main() {
 		collection := db.Database("GPS").Collection("statuses")
 		res, err := collection.InsertMany(ctx, imeiDetail)
 		if err != nil {
-			return
+			log.Fatal(err)
 		}
-		print(res.InsertedIDs)
+		for key, val := range res.InsertedIDs {
+			println(key, val)
+		}
 		imeiDetail = nil
-		time.Sleep(time.Second * 20)
+		time.Sleep(time.Second * 1)
 	}
 }
