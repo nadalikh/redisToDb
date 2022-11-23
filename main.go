@@ -52,7 +52,7 @@ func main() {
 			//imeiDetail = append(imeiDetail, bson.D{{key, r.RPop(key).Val()}})
 
 		}
-		r.FlushDB()
+		//r.FlushDB()
 		if len(keys) > 0 {
 			collection := db.Database("GPS").Collection("statuses")
 			res, err := collection.InsertMany(ctx, imeiDetail)
